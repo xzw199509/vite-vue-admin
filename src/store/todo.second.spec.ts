@@ -2,18 +2,18 @@ import { expect, it, describe, beforeEach, vi, test } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useTodoStore } from './todo'
 import { fetchTodoList, fetchAddTodo, fetchRemoveTodo } from '../api';
-import axios from 'axios'
 
-vi.mock('axios')
+// mock 中间层
+vi.mock('../api') // 版本二 不暴露操作
 test('add todo', async () => {
-  // vi.mocked(axios.post).mockResolvedValue({
-  //   data: { data: { todo: { id: 1, title: 'xiao' } }, state: 1 },
-  // })
-  vi.mocked(axios.post).mockImplementation((path, { title }: any) => {
-    console.log(path, title);
-    return Promise.resolve({ data: { data: { todo: { id: 1, title } }, state: 1 } })
+
+  // 升级为版本二
+  vi.mocked(fetchAddTodo).mockImplementation((title) => {
+    return Promise.resolve({
+      data: { todo: { id: 1, title } },
+      state: 1
+    })
   })// 状态验证
-  
   setActivePinia(createPinia())
   const todoStore = useTodoStore()
   const title = 'xiao'
@@ -25,16 +25,30 @@ test('add todo', async () => {
 })
 
 test('remove todo', async () => {
-  // 第一次添加
-  vi.mocked(axios.post).mockImplementationOnce((path, { title }: any) => {
-    console.log(path, title);
-    return Promise.resolve({ data: { data: { todo: { id: 1, title } }, state: 1 } })
+  // // 第一次添加
+  // vi.mocked(axios.post).mockImplementationOnce((path, { title }: any) => {
+  //   console.log(path, title);
+  //   return Promise.resolve({ data: { data: { todo: { id: 1, title } }, state: 1 } })
+  // })
+  // // 第二次删除
+  // vi.mocked(axios.post).mockImplementationOnce((path, { id }: any) => {
+  //   console.log(path, title);
+  //   return Promise.resolve({ data: { data: { id }, state: 1 } })
+  // })
+
+  // 升级为版本二
+  vi.mocked(fetchAddTodo).mockImplementation((title) => {
+    return Promise.resolve({
+      data: { todo: { id: 1, title } },
+      state: 1
+    })
   })
-  // 第二次删除
-  vi.mocked(axios.post).mockImplementationOnce((path, { id }: any) => {
-    console.log(path, title);
-    return Promise.resolve({ data: { data: { id }, state: 1 } })
+  vi.mocked(fetchRemoveTodo).mockImplementationOnce(( id ) => {
+    return Promise.resolve({
+       data: { id}, state: 1 
+    })
   })
+
   setActivePinia(createPinia())
   const todoStore = useTodoStore()
   const title = 'xiao'
@@ -46,7 +60,7 @@ test('remove todo', async () => {
 
 test('update todo', async () => {
   const todoList = [{ id: 1, title: "写代码" }]
-  vi.mocked(axios.get).mockResolvedValue({ data: { data: { todoList } } })
+  vi.mocked(fetchTodoList).mockResolvedValue( { data: { todoList } })
 
   setActivePinia(createPinia())
   const todoStore = useTodoStore()
