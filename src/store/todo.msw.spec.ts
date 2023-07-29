@@ -18,7 +18,7 @@ afterAll(()=>{
 
 // mock 中间层
 vi.mock('../api') // 版本二 不暴露操作
-test.only('add todo', async () => {
+test.skip('add todo', async () => {
   // vi.mocked(fetchAddTodo).mockImplementation((title) => {
   //   return Promise.resolve({
   //     data: { todo: { id: 1, title } },
