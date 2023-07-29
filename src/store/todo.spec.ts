@@ -1,9 +1,8 @@
-import { expect, it, describe, beforeEach, vi, test } from 'vitest'
+import { expect, vi, test } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useTodoStore } from './todo'
-import { fetchTodoList, fetchAddTodo, fetchRemoveTodo } from '../api';
 import axios from 'axios'
-
+// 直接mock axios
 vi.mock('axios')
 test('add todo', async () => {
   // vi.mocked(axios.post).mockResolvedValue({

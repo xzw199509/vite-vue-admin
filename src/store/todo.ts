@@ -19,6 +19,8 @@ export const useTodoStore = defineStore('todo',()=>{
     } 
     
     async function addTodo(title:string) {
+        console.log(title);
+        
         const {data, state} =await fetchAddTodo(title)
         const todo = createTodoItem(data.todo.id, data.todo.title)
         if(state){
