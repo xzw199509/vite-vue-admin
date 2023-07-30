@@ -24,7 +24,7 @@ describe('payValidator', () => {
   ])('should return %s when pay is %s', (pay, expected) => {
     expect(payValidator(pay)).toBe(expected)
   })
-  // 对象方式
+  // 对象方式 可读性更好
   it.each([
     { pay: '100', expected: false },
     { pay: '10000', expected: true },
