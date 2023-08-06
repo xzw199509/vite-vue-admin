@@ -1,16 +1,18 @@
-<script setup lang="ts">
-
-
-const msg = 'About'
-</script>
-
 <template>
-  <h1>{{ msg }}</h1>
-
+  <div class="demo"></div>
 </template>
 
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>
+<script lang="ts">
+import ThreeJs from "./three-earth";
+import { defineComponent, onMounted } from "vue";
+export default defineComponent({
+  name: "Demo01",
+  props: {},
+  setup() {
+    onMounted(() => {
+      new ThreeJs();
+    });
+  },
+});
+</script>
+<style scoped lang="scss"></style>

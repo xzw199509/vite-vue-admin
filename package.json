@@ -13,10 +13,12 @@
     "axios": "^1.4.0",
     "msw": "^1.2.3",
     "pinia": "^2.1.6",
+    "three": "^0.155.0",
     "vue": "^3.3.4",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
+    "@types/three": "^0.155.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
