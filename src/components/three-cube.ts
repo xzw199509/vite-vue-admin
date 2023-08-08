@@ -18,7 +18,9 @@ export default class ThreeJs {
     this.setCamera();
     this.setRenderer();
     this.setCube();
+    this.setLight()
     this.animate();
+    
   }
 
   // 新建透视相机
