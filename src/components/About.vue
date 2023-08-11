@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import ThreeJs from "./three-earth";
+import ThreeJs from "./three-shader-sphere";
 import { defineComponent, onMounted } from "vue";
 export default defineComponent({
   name: "Demo01",

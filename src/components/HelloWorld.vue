@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
@@ -35,4 +35,22 @@ const count = ref(0)
 .read-the-docs {
   color: #888;
 }
-</style>
+</style> -->
+<template>
+  <div class="demo"></div>
+</template>
+
+<script lang="ts">
+import ThreeJs from "./three-vue";
+import { defineComponent, onMounted } from "vue";
+export default defineComponent({
+  name: "Demo01",
+  props: {},
+  setup() {
+    onMounted(() => {
+      new ThreeJs();
+    });
+  },
+});
+</script>
+<style scoped lang="scss"></style>

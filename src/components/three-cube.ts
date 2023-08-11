@@ -82,6 +82,55 @@ export default class ThreeJs {
       })
       this.mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
       this.scene.add(this.mesh); //网格模型添加到场景中
+
+
+        // 创建一个几何图形，使用顶点定义三角形
+        const geometry1 = new THREE.BufferGeometry();
+        // 定义立方体的 8 个顶点坐标
+        const vertices = [
+          // 前面四个顶点
+          new THREE.Vector3(-1, -1, 4),
+          new THREE.Vector3(1, -1, 4),
+          new THREE.Vector3(1, 1, 4),
+          new THREE.Vector3(-1, 1, 4),
+  
+          // 后面四个顶点
+          new THREE.Vector3(-1, -1, -4),
+          new THREE.Vector3(1, -1, -4),
+          new THREE.Vector3(1, 1, -4),
+          new THREE.Vector3(-1, 1, -4)
+        ];
+        // 定义立方体的面（索引）数据
+        const indices = [
+          0, 1, 2, 2, 3, 0, // 前面两个三角形
+          1, 5, 6, 6, 2, 1, // 右侧两个三角形
+          5, 4, 7, 7, 6, 5, // 后面两个三角形
+          4, 0, 3, 3, 7, 4, // 左侧两个三角形
+          3, 2, 6, 6, 7, 3, // 顶部两个三角形
+          1, 0, 4, 4, 5, 1  // 底部两个三角形
+        ];
+  
+        // 将顶点数据转换为浮点数组
+        const verticesArray = new Float32Array(vertices.length * 3);
+        for (let i = 0; i < vertices.length; i++) {
+          verticesArray[i * 3] = vertices[i].x;
+          verticesArray[i * 3 + 1] = vertices[i].y;
+          verticesArray[i * 3 + 2] = vertices[i].z;
+        }
+  
+        const attribue = new THREE.BufferAttribute(verticesArray, 3);
+        geometry.attributes.position = attribue;
+  
+        const indexAttribute = new THREE.BufferAttribute(new Uint16Array(indices), 1);
+        geometry.setIndex(indexAttribute);
+        //设置法向量
+        //3个为一组,表示一个顶点的法向量数据
+  
+        // 创建一个材质
+        const material1 = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+  
+        // 创建一个网格
+        const triangle = new THREE.Mesh(geometry1, material1);
       this.render();
     }
   }
