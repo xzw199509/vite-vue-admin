@@ -42,6 +42,7 @@ const count = ref(0)
 
 <script lang="ts">
 import ThreeJs from "./three-vue";
+// import ThreeJs from "./three-shader-sphere";
 import { defineComponent, onMounted } from "vue";
 export default defineComponent({
   name: "Demo01",

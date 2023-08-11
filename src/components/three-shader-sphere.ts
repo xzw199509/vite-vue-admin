@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ShaderMaterial } from "three";
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 // import vertexShader from './shaders/vertex.glsl';
@@ -16,7 +17,8 @@ export default class ThreeJs {
   controls: OrbitControls | null = null;
   clock: THREE.Clock = new THREE.Clock();
   // material: THREE.MeshStandardMaterial = new THREE.MeshStandardMaterial();
-  material: THREE.RawShaderMaterial = new THREE.RawShaderMaterial();
+  // material: THREE.RawShaderMaterial = new THREE.RawShaderMaterial();
+  material: any
   constructor() {
     this.init();
   }
@@ -52,7 +54,7 @@ export default class ThreeJs {
       alpha: true,    // 
       antialias: true //
     });
-    // this.renderer.setClearColor(0xffffff)
+    this.renderer.setClearColor(0xffffff)
     // 设置画布的大小
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     //这里 其实就是canvas 画布  renderer.domElement
@@ -353,6 +355,54 @@ export default class ThreeJs {
           vertexShader: vertexShader1,
           fragmentShader: fragmentShader1
       });
+      const vertexShader3 = `
+      varying vec2 vUv;
+      void main() {
+        gl_Position =projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        vUv = uv;
+      }
+ `;
+ const fragmentShader3 = `
+ #define scale.8// 页面缩放比例
+ #define column 50.0// 列数
+ uniform float uTime;
+ varying vec2 vUv;
+ uniform sampler2D uTexture;
+
+ float random(float val){
+   return fract(sin(val*12.9898)*43758.545323);
+ }
+ 
+ void main(){
+  //  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+   vec2 uv=vUv;
+   vec2 st=uv;
+   st.x=(st.x)*column;
+   st.x=floor(st.x);
+   st=st*scale;
+   float offset=sin(st.x*column);
+   float speed=cos(st.x*column)*.15+random(st.x+2.1)*.2+.35;
+   float y=(fract((st.y+uTime/3.*speed+offset)));
+   uv*=column/2.;
+   uv=fract(uv);
+   float offsetx=step(.5,fract((uTime/2.)))/2.;
+   float offsety=step(.5,fract((uTime/3.)))/2.;
+   vec4 color=texture2D(uTexture,vec2((uv.x+offsetx)/1.,uv.y+offsety));
+   color.xyz=color.xyz/(y*20.);
+   color=color*vec4(.1,1.,.35,1.);
+   gl_FragColor=color;
+ }
+  `;
+      
+    const textureLoader = new THREE.TextureLoader();
+      this.material = new ShaderMaterial({
+        vertexShader: vertexShader3,
+        fragmentShader: fragmentShader3,
+        uniforms: {
+          uTexture: { value: textureLoader.load('textures/0123.png') }
+        }
+      })
+
       // this.material = new THREE.MeshStandardMaterial()
       // this.material.onBeforeCompile = (shader) => {
       //   this.material.userData.shader = shader
