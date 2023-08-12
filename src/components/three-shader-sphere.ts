@@ -364,7 +364,7 @@ export default class ThreeJs {
  `;
  const fragmentShader3 = `
  #define scale.8// 页面缩放比例
- #define column 50.0// 列数
+ #define column 500.0// 列数
  uniform float uTime;
  varying vec2 vUv;
  uniform sampler2D uTexture;
@@ -375,22 +375,35 @@ export default class ThreeJs {
  
  void main(){
   //  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
-   vec2 uv=vUv;
-   vec2 st=uv;
-   st.x=(st.x)*column;
-   st.x=floor(st.x);
-   st=st*scale;
-   float offset=sin(st.x*column);
-   float speed=cos(st.x*column)*.15+random(st.x+2.1)*.2+.35;
-   float y=(fract((st.y+uTime/3.*speed+offset)));
-   uv*=column/2.;
-   uv=fract(uv);
-   float offsetx=step(.5,fract((uTime/2.)))/2.;
-   float offsety=step(.5,fract((uTime/3.)))/2.;
-   vec4 color=texture2D(uTexture,vec2((uv.x+offsetx)/1.,uv.y+offsety));
-   color.xyz=color.xyz/(y*20.);
-   color=color*vec4(.1,1.,.35,1.);
-   gl_FragColor=color;
+  //  vec2 uv=vUv;
+  //  vec2 st=uv;
+  //  st.x=(st.x)*column;
+  //  st.x=floor(st.x);
+  //  st=st*scale;
+  //  float offset=sin(st.x*column);
+  //  float speed=cos(st.x*column)*.15+random(st.x+2.1)*.2+.35;
+  //  float y=(fract((st.y+uTime/3.*speed+offset)));
+  //  uv*=column/2.;
+  //  uv=fract(uv);
+  //  float offsetx=step(.5,fract((uTime/2.)))/2.;
+  //  float offsety=step(.5,fract((uTime/3.)))/2.;
+  //  vec4 color=texture2D(uTexture,vec2((uv.x+offsetx)/1.,uv.y+offsety));
+  //  color.xyz=color.xyz/(y*20.);
+  //  color=color*vec4(.1,1.,.35,1.);
+    vec2 st=vUv;
+    // st.x = st.x+sin(st.y*1.5);
+    st.x = st.x*column;
+
+    st.x  = floor(st.x);
+
+    st =  st *scale;
+
+    float offset = sin (st.x*column);
+    float speed  = cos (st.x*3.)*.15 + .35; 
+    float y = (fract((st.y+uTime/2.*speed+offset)));
+    vec3 col = vec3(.1, 1., .35)/(y*20.);
+    vec4 color = vec4(col,0.1);
+    gl_FragColor=color;
  }
   `;
       
