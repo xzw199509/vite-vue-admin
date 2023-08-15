@@ -352,8 +352,8 @@ export default class ThreeJs {
       const planeGeometry = new THREE.PlaneGeometry(2, 2)
       this.material = new THREE.RawShaderMaterial({
         // const material = new THREE.ShaderMaterial({
-          vertexShader: vertexShader1,
-          fragmentShader: fragmentShader1
+        vertexShader: vertexShader1,
+        fragmentShader: fragmentShader1
       });
       const vertexShader3 = `
       varying vec2 vUv;
@@ -362,7 +362,7 @@ export default class ThreeJs {
         vUv = uv;
       }
  `;
- const fragmentShader3 = `
+      const fragmentShader3 = `
  #define scale.8// 页面缩放比例
  #define column 500.0// 列数
  uniform float uTime;
@@ -406,8 +406,8 @@ export default class ThreeJs {
     gl_FragColor=color;
  }
   `;
-      
-    const textureLoader = new THREE.TextureLoader();
+
+      const textureLoader = new THREE.TextureLoader();
       this.material = new ShaderMaterial({
         vertexShader: vertexShader3,
         fragmentShader: fragmentShader3,
@@ -432,8 +432,8 @@ export default class ThreeJs {
       //   this.material.userData.shader =shader
       //   shader.uniform
       // },
-      this.material.uniforms.uTime = {value: 0}
-      this.material.uniforms .uRadius = {value: 0.5}
+      this.material.uniforms.uTime = { value: 0 }
+      this.material.uniforms.uRadius = { value: 0.5 }
       const plane = new THREE.Mesh(planeGeometry, this.material)
       plane.position.x = -0.5 * Math.PI // 旋转位置
       // this.scene.add(plane);
