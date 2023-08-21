@@ -41,10 +41,13 @@ const count = ref(0)
 </template>
 
 <script lang="ts">
-// import ThreeJs from "./three-cube";
+import ThreeJs from "./three-cube";
+// import ThreeJs from "./three-vue";
 // import ThreeJs from "./three-vue2";
 // import ThreeJs from "./three-shader-sphere";
-import ThreeJs from "./three-shine";
+// import ThreeJs from "./three-shine";
+// import ThreeJs from "./three-earth";
+
 import { defineComponent, onMounted } from "vue";
 export default defineComponent({
   name: "Demo01",

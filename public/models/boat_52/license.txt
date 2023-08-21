@@ -1,0 +1,11 @@
+Model Information:
+* title:	Boat 52
+* source:	https://sketchfab.com/3d-models/boat-52-f36109b82d6341eea34e00c981355ac9
+* author:	agt14032013 (https://sketchfab.com/agt14032013)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Boat 52" (https://sketchfab.com/3d-models/boat-52-f36109b82d6341eea34e00c981355ac9) by agt14032013 (https://sketchfab.com/agt14032013) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

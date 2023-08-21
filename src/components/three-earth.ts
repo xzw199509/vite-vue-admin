@@ -2,6 +2,7 @@ import * as THREE from "three";
 import realEarth from '@/assets/images/realEarth.jpg';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 export default class ThreeJs {
   scene: THREE.Scene | null = null;
   camera: THREE.PerspectiveCamera | null = null;
@@ -73,7 +74,7 @@ export default class ThreeJs {
   // 创建网格模型
   setCube(): void {
     if (this.scene) {
-      const geometry = new THREE.SphereGeometry(10,32,32); //创建一个立方体几何对象Geometry
+      const geometry = new THREE.SphereGeometry(1,32,32); //创建一个立方体几何对象Geometry
       // const material = new THREE.MeshBasicMaterial({ color: 0xff3200 }); //材质对象Material
       const texture = new THREE.TextureLoader().load(
         realEarth
@@ -81,6 +82,7 @@ export default class ThreeJs {
       ); //首先，获取到纹理
       const material = new THREE.MeshBasicMaterial({ map: texture }); //然后创建一个phong材质来处理着色，并传递给纹理映射
       this.mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+      this.mesh.position.y = -10
       this.scene.add(this.mesh); //网格模型添加到场景中
 
     }
@@ -99,26 +101,73 @@ export default class ThreeJs {
       // plane.position.y = -0.1
       // this.scene.add(plane);
 
+      // const loader = new FBXLoader();
+
+      // loader.load('models/Free_Mountain/Free_Mountain.FBX', (fbx) => {
+
+      //   const mesh = fbx;
+
+      //   const s = 0.1;
+      //   mesh.scale.set(s, s, s);
+      //   // mesh.position.y = 12;
+      //   // mesh.position.z = 5;
+      //   // mesh.rotation.y = Math.PI ;
+
+      //   mesh.castShadow = true;
+      //   mesh.receiveShadow = true;
+
+      //   this.scene?.add(mesh);
+
+      //   // const mixer = new THREE.AnimationMixer(mesh);
+      //   // mixer.clipAction(gltf.animations[0]).setDuration(1).play();
+      //   // this.mixers.push(mixer);
+      //   this.render();
+      // });
+
+      // const loader = new GLTFLoader();
+
+      // loader.load('models/Flamingo.glb', (gltf) => {
+
+      //   const mesh = gltf.scene.children[0];
+
+      //   const s = 0.01;
+      //   mesh.scale.set(s, s, s);
+      //   mesh.position.y = 12;
+      //   mesh.position.z = 5;
+      //   mesh.rotation.y = Math.PI ;
+
+      //   mesh.castShadow = true;
+      //   mesh.receiveShadow = true;
+
+      //   this.scene?.add(mesh);
+
+      //   const mixer = new THREE.AnimationMixer(mesh);
+      //   mixer.clipAction(gltf.animations[0]).setDuration(1).play();
+      //   this.mixers.push(mixer);
+      //   this.render();
+      // });
+
       const loader = new GLTFLoader();
+      
+      loader.load('models/mazda_rx-7/scene.gltf', (gltf) => {
+      // loader.load('models/yellow_submarine/scene.gltf', (gltf) => {
+      // loader.load('models/boat_52/scene.gltf', (gltf) => {
+        const mesh = gltf.scene;
 
-      loader.load('models/Flamingo.glb', (gltf) => {
-
-        const mesh = gltf.scene.children[0];
-
-        const s = 0.01;
+        const s = 1.1;
         mesh.scale.set(s, s, s);
-        mesh.position.y = 12;
-        mesh.position.z = 5;
-        mesh.rotation.y = Math.PI ;
+        // mesh.position.y = 12;
+        // mesh.position.z = 5;
+        // mesh.rotation.y = Math.PI ;
 
         mesh.castShadow = true;
         mesh.receiveShadow = true;
 
         this.scene?.add(mesh);
 
-        const mixer = new THREE.AnimationMixer(mesh);
-        mixer.clipAction(gltf.animations[0]).setDuration(1).play();
-        this.mixers.push(mixer);
+        // const mixer = new THREE.AnimationMixer(mesh);
+        // mixer.clipAction(gltf.animations[0]).setDuration(1).play();
+        // this.mixers.push(mixer);
         this.render();
       });
     }

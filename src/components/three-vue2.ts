@@ -16,7 +16,8 @@ export default class ThreeJs {
     this.setRenderer();
     this.setCamera();
     this.setCube();
-    this.setV();
+    // this.setV();
+    this.setVue();
     this.setLight()
     this.animate();
 
@@ -254,7 +255,7 @@ export default class ThreeJs {
       // console.log('normals', normals);
       // // geometry1.attributes.normal =  new THREE.BufferAttribute(normals, 3)
       // geometry1.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
-      geometry1.setIndex(indices);
+      // geometry1.setIndex(indices);
       // 定义顶点坐标
       const vertices2 = [
         // 前面六个顶点
