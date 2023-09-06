@@ -1,11 +1,12 @@
 // import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config';
-import{ resolve } from 'path'
+import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
-  test:{
-    setupFiles:"./vitest.setup.ts"
+  test: {
+    setupFiles: "./vitest.setup.ts",
+    environment: "happy-dom",
   },
   plugins: [vue()],
   server: {
@@ -13,19 +14,19 @@ export default defineConfig({
     port: 3090,  // 支行端口
     // open: true, // 自动运行在浏览器中
     proxy: { //跨域代理 api 还有rewrite里面的api 改成自己项目里面的
-        '/api': {
-            target: 'http://localhost:9988',  // 跨域地址
-            ws: true,
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-        },
+      '/api': {
+        target: 'http://localhost:9988',  // 跨域地址
+        ws: true,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
     },
   },
-  resolve:{
-    alias:[
+  resolve: {
+    alias: [
       {
-        find:'@',
-        replacement:resolve(__dirname,'src')
+        find: '@',
+        replacement: resolve(__dirname, 'src')
       }
     ]
   }
